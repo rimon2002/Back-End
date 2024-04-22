@@ -3,6 +3,7 @@ session_start();
 include('includes/header.php');
 include('includes/topbar.php');
 include('includes/sidebar.php');
+include('config/dbcon.php');
 
 ?>
 
@@ -91,23 +92,54 @@ include('includes/sidebar.php');
                 <table id="example 1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
+                    <?php
+                    $query="SELECT * FROM users";
+                    $query_run=mysqli_query($con,$query);
+                 if(mysqli_num_rows($query_run)>0)
+                 {
+                 foreach($query_run as $row)
+                  {
+                   //echo  $row['name'];
+                   ?>
+                   <tr>
+                    <td><?php echo  $row['id']; ?></td>
+                    <td><?php echo  $row['name']; ?></td>
+                    <td><?php echo  $row['email']; ?></td>
+                    <td><?php echo  $row['phone']; ?></td>
+                    
+                    <td>
+                    <a href="">Edit</a>
+                    <a href="">Delete</a>
+
+
                     </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
                   </tr>
+                   <?php
+                  }
+
+
+
+                 }
+                   else{
+                    ?>
+                    <tr>
+                      <td>No Record Found</td>
+                    </tr>
+                    <?php
+
+
+                   }   
+                   ?>
+                    
+                  
                   </tbody>
                   </table>
                   </div>
