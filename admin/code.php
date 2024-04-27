@@ -8,23 +8,36 @@ if(isset($_POST['addUser']))
   $email=$_POST['email'];
   $phone=$_POST['phone'];
   $password=$_POST['password'];
- $user_query="INSERT INTO users (name,email,phone,password) VALUES('$name','$email','$phone','$password') ";
- $user_query_run=mysqli_query($con, $user_query);
+  $confirmpassword=$_POST['confirmpassword'];
 
-if($user_query_run)
-{
-    $_SESSION['status']="User Added Succesfully";
-    header("Location:registered.php");
-
-
-}
-
+  if($password==$confirmpassword)
+  {
+    $user_query="INSERT INTO users (name,email,phone,password) VALUES('$name','$email','$phone','$password') ";
+    $user_query_run=mysqli_query($con, $user_query);
+   
+   if($user_query_run)
+   {
+       $_SESSION['status']="User Added Succesfully";
+       header("Location:registered.php");
+   
+   
+   }
+   
+   else
+   {
+       $_SESSION['status']="User Added Failed";
+       header("Location:registered.php");
+   
+   }
+  }
 else
 {
-    $_SESSION['status']="User Added Failed";
+    $_SESSION['status']="Password  and Confirmpassword doesn't match.";
     header("Location:registered.php");
 
+
 }
+ 
 
 
 }
@@ -59,6 +72,32 @@ else
 
 }
 
+
+if (isset($_POST['DeleteUserbtn'])) 
+
+
+{
+   $userid=$_POST['delete_id'];
+   $query="DELETE FROM users WHERE id='$userid'";
+   $query_run=mysqli_query($con,$query);
+
+   if($query_run)
+   {
+       $_SESSION['status']="User Deleted Succesfully";
+       header("Location:registered.php");
+   
+   
+   }
+   
+   else
+   {
+       $_SESSION['status']="User Deleting Failed";
+       header("Location:registered.php");
+   
+   }  
+    
+
+}
 
 
 ?>

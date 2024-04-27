@@ -94,3 +94,4 @@ include('includes/sidebar.php');
 include('includes/footer.php');
 
 ?>
+<?php  include('includes/script.php'); ?>

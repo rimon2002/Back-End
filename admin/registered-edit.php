@@ -111,3 +111,4 @@ include('config/dbcon.php');
 include('includes/footer.php');
 
 ?>
+<?php  include('includes/script.php'); ?>
