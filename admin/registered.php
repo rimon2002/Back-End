@@ -57,7 +57,7 @@ include('config/dbcon.php');
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Registered Users</li>
+              <li class="breadcrumb-item active">Edit-Registered Users</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -116,8 +116,8 @@ include('config/dbcon.php');
                     <td><?php echo  $row['phone']; ?></td>
                     
                     <td>
-                    <a href="">Edit</a>
-                    <a href="">Delete</a>
+                    <a href="registered-edit.php?user_id=<?php echo $row ['id'];?>" class="btn btn-info btn-sm">Edit</a>
+                    <a href="" class="btn btn-danger btn-sm">Delete</a>
 
 
                     </td>
