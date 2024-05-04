@@ -2,6 +2,22 @@
 session_start();
 include('config/dbcon.php');
 
+if(isset($_POST['check_Emailbtn']))
+{
+    $checkmail="SELECT email FROM users WHERE email='$email'  ";
+    $checkmail_run=mysqli_query($con,$checkmail);
+    if(mysqli_num_rows($checkmail_run)>0)
+    {
+        echo "Email id already taken.!!";
+    }
+    else
+    {
+        echo "It's available.";
+    } 
+}
+
+
+
 if(isset($_POST['addUser']))
 {
   $name=$_POST['name'];
@@ -12,23 +28,36 @@ if(isset($_POST['addUser']))
 
   if($password==$confirmpassword)
   {
-    $user_query="INSERT INTO users (name,email,phone,password) VALUES('$name','$email','$phone','$password') ";
-    $user_query_run=mysqli_query($con, $user_query);
-   
-   if($user_query_run)
-   {
-       $_SESSION['status']="User Added Succesfully";
-       header("Location:registered.php");
-   
-   
-   }
-   
-   else
-   {
-       $_SESSION['status']="User Added Failed";
-       header("Location:registered.php");
-   
-   }
+    $checkmail="SELECT email FROM users WHERE email='$email'  ";
+    $checkmail_run=mysqli_query($con,$checkmail);
+    if(mysqli_num_rows($checkmail_run)>0)
+    {
+        $_SESSION['status']="Email id already taken.!!";
+        header("Location:registered.php");
+    }
+    else
+    {
+        $user_query="INSERT INTO users (name,email,phone,password) VALUES('$name','$email','$phone','$password') ";
+        $user_query_run=mysqli_query($con, $user_query);
+       
+       if($user_query_run)
+       {
+        //Taken-Already Existist
+           $_SESSION['status']="User Added Succesfully";
+           header("Location:registered.php");
+       exit;
+       
+       }
+       
+       else
+       {
+        //Available record not found
+           $_SESSION['status']="User Added Failed";
+           header("Location:registered.php");
+       
+       }  
+    }
+    
   }
 else
 {

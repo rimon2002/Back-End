@@ -26,7 +26,8 @@ include('config/dbcon.php');
         </div>
         <div class="form-group">
             <label for="">Email:</label>
-            <input type="email" name="email"  class="form-control" placeholder="example:rimon65@gmail.com">
+            <span class="email_errors text-danger ml-2"></span>
+            <input type="email" name="email"  class="form-control email_id" placeholder="example:rimon65@gmail.com" required>
         </div>
 
         <div class="form-group">
@@ -202,6 +203,40 @@ include('config/dbcon.php');
 </div>
 
 <?php  include('includes/script.php'); ?>
+
+<script>
+$(document).ready(function(){
+
+$('.eamail_id').keyup(function(e){
+
+    var email=$('.email_id').val();
+
+  $.ajax({
+    type:"POST",
+    url:"code.php",
+    data:{
+      'check_Emailbtn':1,
+       'email':email,
+    },
+  
+    success: function(response){
+      $('.email_error').text(response);
+      
+    }
+
+  });
+
+
+    
+});
+
+
+});
+
+
+
+</script>
+
 
 <script>
 
